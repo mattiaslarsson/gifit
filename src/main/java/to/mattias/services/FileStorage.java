@@ -1,5 +1,8 @@
 package to.mattias.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,10 +14,16 @@ import java.io.IOException;
  */
 @Component
 public class FileStorage {
+    @Autowired
+    private Environment env;
 
-    public static void save(MultipartFile fileToStore) throws IOException {
-        String filename = String.valueOf(System.currentTimeMillis());
+
+    public String save(MultipartFile fileToStore) throws IOException {
+        String location = env.getProperty("spring.http.multipart.location");
+        System.out.println(location);
+        String filename = String.valueOf(System.currentTimeMillis()) + ".mp4";
         File file = new File(filename);
         fileToStore.transferTo(file);
+        return location+filename;
     }
 }
