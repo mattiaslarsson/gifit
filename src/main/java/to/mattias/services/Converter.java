@@ -1,7 +1,6 @@
 package to.mattias.services;
 
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 
 /**
@@ -9,15 +8,20 @@ import java.io.IOException;
  */
 @Service
 public class Converter {
-
-    public void convert(String file, int start, int end) {
-        String command = "ffmpeg -t " + (end-start) + "-ss 00:00:0" + start + " -i "
-                + file + " " + file + ".gif";
-        Process p;
+	
+	
+    public String convert(String file, int start, int end) {
+    	String outFile = file.substring(0, file.lastIndexOf("."));
+        String command = "ffmpeg -i " + file + " -ss 00:00:" + start + " -t 00:00:" + end + " " + outFile + ".gif";
         try {
-            p = Runtime.getRuntime().exec(command);
+            Process p = Runtime.getRuntime().exec(command);
+            p.waitFor();
+            return outFile + ".gif";
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return "";
     }
 }
