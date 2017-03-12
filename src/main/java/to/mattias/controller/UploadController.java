@@ -5,15 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import to.mattias.services.Converter;
 import to.mattias.services.FileStorage;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by mattias on 2017-03-10.
@@ -27,10 +25,13 @@ public class UploadController {
 
     private String fileString = null;
     private String gifUrl = null;
+
+    private AtomicInteger counter = new AtomicInteger(0);
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String rootDir(HttpServletRequest request, HttpServletResponse response) {
-    	return "index";
+    public String rootDir(Model model) {
+        model.addAttribute("counter", counter.get());
+        return "index";
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -47,6 +48,7 @@ public class UploadController {
         if(file != null) {
             gifUrl = converter.convert(fileString, start, end);
         }
+        counter.addAndGet(1);
         model.addAttribute("url", "/images/" + gifUrl.substring(gifUrl.lastIndexOf("/") + 1, gifUrl.length()));
         return "result";
     }

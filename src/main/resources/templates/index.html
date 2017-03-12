@@ -1,14 +1,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>
-			GIFIT - Convert your mp4 to an animatied gif
+			GifIt - Convert your mp4 to an animatied gif
 		</title>
 	</head>
 	<body>
+		<h1>GifIt</h1>
+		<h2>Upload an mp4 video file and have it converted to an animated gif</h2>
+		<p>There has been <!--/*@thymesVar id="counter" type="java.util.concurrent.atomic.AtomicInteger"*/-->
+		<span th:text="${counter}"></span> uploads so far...</p>
 		<form method="POST" enctype="multipart/form-data" action="/upload">
 			File to convert:<input type="file" name="file" /><br />
-			Start timing: <input type="number" name="start" value="0" /><br />
-			End Timing: <input type="number" name="end" value="10" /><br />
+			Start timing (seconds): <input type="number" name="start" value="0" /><br />
+			Length of animation (seconds): <input type="number" name="end" value="10" /><br />
 			<input type="submit" value="Upload" />
 		</form>
 	</body>
