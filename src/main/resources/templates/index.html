@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>
+			GIFIT - Convert your mp4 to an animatied gif
+		</title>
+	</head>
+	<body>
+		<form method="POST" enctype="multipart/form-data" action="/upload">
+			File to convert:<input type="file" name="file" /><br />
+			Start timing: <input type="number" name="start" value="0" /><br />
+			End Timing: <input type="number" name="end" value="10" /><br />
+			<input type="submit" value="Upload" />
+		</form>
+	</body>
+</html>
