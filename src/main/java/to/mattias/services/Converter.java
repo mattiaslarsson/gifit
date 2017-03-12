@@ -16,6 +16,8 @@ public class Converter {
         try {
             Process p = Runtime.getRuntime().exec(command);
             p.waitFor();
+            Process p2 = Runtime.getRuntime().exec("rm " + file);
+            p2.waitFor();
             return outFile + ".gif";
         } catch (IOException e) {
             e.printStackTrace();

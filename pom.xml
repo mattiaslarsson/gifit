@@ -7,6 +7,9 @@
 	<artifactId>gifit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	<build>
+		<finalName>gifit</finalName>
+	</build>
 
 	<name>gifit</name>
 	<description>Mp4 to GIF converter</description>
@@ -43,11 +46,6 @@
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>2.1.5.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>3.1.1-1</version>
 		</dependency>
 	</dependencies>
 
