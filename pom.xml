@@ -7,9 +7,7 @@
 	<artifactId>gifit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<build>
-		<finalName>gifit</finalName>
-	</build>
+
 
 	<name>gifit</name>
 	<description>Mp4 to GIF converter</description>
@@ -50,6 +48,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>gifit</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
