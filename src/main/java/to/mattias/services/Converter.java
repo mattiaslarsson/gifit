@@ -8,8 +8,6 @@ import java.io.IOException;
  */
 @Service
 public class Converter {
-	
-	
     public String convert(String file, int start, int end) {
     	String outFile = file.substring(0, file.lastIndexOf("."));
         String command = "ffmpeg -i " + file + " -ss 00:00:" + start + " -t 00:00:" + end + " " + outFile + ".gif";
