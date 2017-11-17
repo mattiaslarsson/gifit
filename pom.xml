@@ -6,6 +6,7 @@
 	<groupId>to.mattias</groupId>
 	<artifactId>gifit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<packaging>jar</packaging>
 
 
@@ -46,35 +47,57 @@
 			<version>2.1.5.RELEASE</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>gifit</finalName>
-    <directory>gifit</directory>
+    	<directory>gifit</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                	<jvmArguments>
+						-Xdebug
+						-Xrunjdwp:server=y,transport=dt_socket,address=8787,suspend=n
+						-Dcom.sun.management.jmxremote
+						-Dcom.sun.management.jmxremote.ssl=false
+						-Dcom.sun.management.jmxremote.authenticate=false
+						-Dcom.sun.management.jmxremote.port=41590
+					</jvmArguments>
+				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-        <version>0.4.12</version>
-        <configuration>
-          <imageName>gifit</imageName>
-          <baseImage>java</baseImage>
-          <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+        		<version>0.4.12</version>
+				<configuration>
+          			<imageName>gifit</imageName>
+          			<baseImage>ubuntu:trusty</baseImage>
+					<runs>
+						<run>apt-get update</run>
+						<run>apt-get -y dist-upgrade</run>
+						<run>echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections</run>
+						<run>apt-get install -y python-software-properties</run>
+						<run>add-apt-repository -y ppa:webupd8team/java</run>
+						<run>add-apt-repository ppa:mc3man/trusty-media</run>
+						<run>apt-get update</run>
+						<run>apt-get install -y oracle-java8-installer</run>
+						<run>apt-get install -y --no-install-recommends ffmpeg</run>
+						<run>rm -rf /var/lib/apt/lists/*</run>
+					</runs>
+					<workdir>/data</workdir>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
 					<exposes>8080</exposes>
-          <resources>
-            <resource>
-              <targetPath>/</targetPath>
-              <directory>${project.build.directory}</directory>
-              <include>${project.build.finalName}.jar</include>
-            </resource>
-          </resources>
-        </configuration>
+
+          			<resources>
+            			<resource>
+              				<targetPath>/</targetPath>
+              				<directory>${project.build.directory}</directory>
+              				<include>${project.build.finalName}.jar</include>
+            			</resource>
+          			</resources>
+        		</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

@@ -9,19 +9,22 @@ import java.io.IOException;
 @Service
 public class Converter {
     public String convert(String file, int start, int end) {
-    	String outFile = file.substring(0, file.lastIndexOf("."));
+    	  String outFile = file.substring(0, file.lastIndexOf("."));
+    	  // Command for running ffmpeg
         String command = "ffmpeg -i " + file + " -ss 00:00:" + start + " -t 00:00:" + end + " " + outFile + ".gif";
         try {
+            // Execute the ffmpeg command
             Process p = Runtime.getRuntime().exec(command);
             p.waitFor();
+            // Remove the old file
             Process p2 = Runtime.getRuntime().exec("rm " + file);
             p2.waitFor();
+
             return outFile + ".gif";
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException  | InterruptedException e) {
             e.printStackTrace();
         }
-        return "";
+
+        return null;
     }
 }

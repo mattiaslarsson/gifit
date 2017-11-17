@@ -16,12 +16,19 @@ public class FileStorage {
     @Autowired
     private Environment env;
 
-
     public String save(MultipartFile fileToStore) throws IOException {
+
         String location = env.getProperty("spring.http.multipart.location");
+        // Generate a unique filename for the uploaded file and save the uploaded file
         String filename = String.valueOf(System.currentTimeMillis()) + ".mp4";
         File file = new File(filename);
         fileToStore.transferTo(file);
+
         return location + "/" + filename;
+    }
+
+    public void createUploadDir() {
+      String location = env.getProperty("spring.http.multipart.location");
+      new File(location).mkdir();
     }
 }

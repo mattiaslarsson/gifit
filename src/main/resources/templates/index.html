@@ -13,10 +13,27 @@
 			File to convert:<input type="file" name="file" required="required"/><br />
 			Start timing (seconds): <input type="number" name="start" min="0" value="0" /><br />
 			Length of animation (seconds): <input type="number" name="end" min="0" value="10" /><br />
+			Tag: <input type="text" name="tag" required="required" /><br />
 			<input type="submit" value="Upload" />
 		</form>
-		<div th:each="image: ${uploadedGifs}">
+		<form method="get" action="/">
+			Search by tag: <input type="text" name="tags" required="required"/><br/>
+			<input type="submit" value="Search" />
+		</form>
+		<div class="resultImage" th:each="image: ${showableGifs}">
 			<img th:src="${image}" />
 		</div>
+	<style>
+		.resultImage {
+			display: inline-flex;
+		}
+		h1 {
+			font-family: Anonymous Pro, Menlo, Consolas, Bitstream Vera Sans Mono, Courier New, monospace;
+			font-size: 64px;
+		}
+		h2 {
+			font-family: "Andale Mono";
+		}
+	</style>
 	</body>
 </html>
