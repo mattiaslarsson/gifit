@@ -1,5 +1,7 @@
 package to.mattias.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 
@@ -8,8 +10,11 @@ import java.io.IOException;
  */
 @Service
 public class Converter {
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     public String convert(String file, int start, int end) {
     	  String outFile = file.substring(0, file.lastIndexOf("."));
+    	  logger.info("Converting {} and saving it to {}", file, outFile);
     	  // Command for running ffmpeg
         String command = "ffmpeg -i " + file + " -ss 00:00:" + start + " -t 00:00:" + end + " " + outFile + ".gif";
         try {
