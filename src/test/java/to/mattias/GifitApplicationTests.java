@@ -13,4 +13,9 @@ public class GifitApplicationTests {
 	public void contextLoads() {
 	}
 
+	@Test
+	public void dummTest() {
+		// This is just a test to trigger a build
+	}
+
 }
