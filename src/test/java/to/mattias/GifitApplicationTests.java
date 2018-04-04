@@ -18,4 +18,9 @@ public class GifitApplicationTests {
 		// This is just a test to trigger a build
 	}
 
+	@Test
+  public void testTest() {
+	  // Adding a test in a new branch to see if TeamCity is triggered
+  }
+
 }
