@@ -50,13 +50,14 @@ public class UploadController {
         List<String> showableGifs = new ArrayList<>(); // List of gifs that has the correct tag
 
         // Get all uploaded gifs
-        try(Stream<Path> paths = Files.walk(Paths.get(env.getProperty("spring.http.multipart.location")))) {
+        String location = env.getProperty("spring.http.multipart.location");
+        try(Stream<Path> paths = Files.walk(Paths.get(location))) {
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     counter.addAndGet(1);
                     uploadedGifs.add("/images/" +
                             filePath.toString().substring(
-                                    filePath.toString().lastIndexOf("/") + 1, filePath.toString().length()));
+                                    filePath.toString().lastIndexOf("/") + 1));
                 }
 
             });
